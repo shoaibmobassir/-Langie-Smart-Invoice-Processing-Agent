@@ -43,6 +43,44 @@ def checkpoint_hitl_node(state: WorkflowState, config: Dict[str, Any], runtime: 
         vendor_name = invoice_payload.get("vendor_name", "unknown")
         amount = invoice_payload.get("amount", 0)
         
+        # Extract detailed mismatch information from match_two_way stage
+        mismatch_reason = "Match failed - insufficient score"
+        failed_stage = "MATCH_TWO_WAY"
+        
+        match_evidence = match_output.get("match_evidence", {})
+        if match_evidence:
+            # Build detailed mismatch reason
+            reasons = []
+            
+            # Check for no PO found
+            if match_evidence.get("reason") == "No matching PO found":
+                mismatch_reason = "No matching PO found for this invoice"
+            else:
+                # Amount mismatch
+                if match_evidence.get("tolerance_exceeded", False):
+                    amount_diff = match_evidence.get("amount_diff", 0)
+                    amount_diff_pct = match_evidence.get("amount_diff_pct", 0)
+                    reasons.append(f"Amount difference: ${amount_diff:,.2f} ({amount_diff_pct:.1f}%) exceeds tolerance")
+                
+                # Line item mismatch
+                line_item_matches = match_evidence.get("line_item_matches", [])
+                total_invoice_items = len(state.get("prepare", {}).get("normalized_invoice", {}).get("line_items", []))
+                matched_items = len(line_item_matches)
+                
+                if total_invoice_items > 0:
+                    match_rate = (matched_items / total_invoice_items) * 100
+                    if match_rate < 100:
+                        reasons.append(f"Line item mismatch: {matched_items}/{total_invoice_items} items matched ({match_rate:.1f}%)")
+                
+                # Match score
+                match_score = match_output.get("match_score", 0.0)
+                reasons.append(f"Match score: {match_score:.2%} (threshold: {state.get('config', {}).get('match_threshold', 0.90):.0%})")
+                
+                if reasons:
+                    mismatch_reason = "; ".join(reasons)
+                else:
+                    mismatch_reason = f"Match score too low: {match_score:.2%}"
+        
         # Generate checkpoint ID
         checkpoint_id = str(uuid.uuid4())
         
@@ -72,6 +110,8 @@ def checkpoint_hitl_node(state: WorkflowState, config: Dict[str, Any], runtime: 
             "amount": amount,
             "created_at": datetime.utcnow().isoformat(),
             "reason_for_hold": "MATCH_FAILED_HITL",
+            "mismatch_reason": mismatch_reason,
+            "failed_stage": failed_stage,
             "review_url": review_url,
             "state_blob": state_blob,
             "thread_id": thread_id

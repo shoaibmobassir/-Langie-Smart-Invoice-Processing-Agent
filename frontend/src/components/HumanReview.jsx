@@ -112,7 +112,8 @@ function HumanReview() {
                 <th>Invoice ID</th>
                 <th>Vendor</th>
                 <th>Amount</th>
-                <th>Reason</th>
+                <th>Failed Stage</th>
+                <th>Mismatch Reason</th>
                 <th>Created At</th>
                 <th>Actions</th>
               </tr>
@@ -124,7 +125,12 @@ function HumanReview() {
                   <td>{review.vendor_name}</td>
                   <td>{formatCurrency(review.amount)}</td>
                   <td>
-                    <span className="badge badge-warning">{review.reason_for_hold}</span>
+                    <span className="badge badge-danger">{review.failed_stage || 'N/A'}</span>
+                  </td>
+                  <td>
+                    <div style={{ maxWidth: '300px', fontSize: '12px' }}>
+                      {review.mismatch_reason || review.reason_for_hold || 'N/A'}
+                    </div>
                   </td>
                   <td>{formatDate(review.created_at)}</td>
                   <td>
@@ -152,8 +158,24 @@ function HumanReview() {
           <div className="review-details">
             <p><strong>Vendor:</strong> {selectedReview.vendor_name}</p>
             <p><strong>Amount:</strong> {formatCurrency(selectedReview.amount)}</p>
-            <p><strong>Reason for Hold:</strong> {selectedReview.reason_for_hold}</p>
-            <p><strong>Created:</strong> {formatDate(selectedReview.created_at)}</p>
+            <p><strong>Failed Stage:</strong> 
+              <span className="badge badge-danger" style={{ marginLeft: '10px' }}>
+                {selectedReview.failed_stage || 'N/A'}
+              </span>
+            </p>
+            <p><strong>Mismatch Reason:</strong></p>
+            <div style={{ 
+              backgroundColor: '#fff3cd', 
+              border: '1px solid #ffc107', 
+              borderRadius: '4px', 
+              padding: '10px', 
+              marginTop: '5px',
+              fontSize: '14px',
+              lineHeight: '1.5'
+            }}>
+              {selectedReview.mismatch_reason || selectedReview.reason_for_hold || 'No detailed reason available'}
+            </div>
+            <p style={{ marginTop: '10px' }}><strong>Created:</strong> {formatDate(selectedReview.created_at)}</p>
           </div>
 
           <div className="review-form">

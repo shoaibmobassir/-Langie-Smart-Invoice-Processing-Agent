@@ -79,6 +79,8 @@ class HumanReviewItem(BaseModel):
     amount: float
     created_at: str
     reason_for_hold: str
+    mismatch_reason: Optional[str] = None
+    failed_stage: Optional[str] = None
     review_url: str
 
 
@@ -534,8 +536,8 @@ async def get_all_workflows():
         if cursor.fetchone():
             cursor.execute("""
                 SELECT checkpoint_id, invoice_id, vendor_name, amount, 
-                       created_at, reason_for_hold, decision, reviewer_id, 
-                       notes, updated_at, thread_id
+                       created_at, reason_for_hold, mismatch_reason, failed_stage,
+                       decision, reviewer_id, notes, updated_at, thread_id
                 FROM human_review_queue
             """)
             

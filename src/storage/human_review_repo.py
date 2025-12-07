@@ -33,6 +33,8 @@ class HumanReviewRepository:
                 amount REAL NOT NULL,
                 created_at TEXT NOT NULL,
                 reason_for_hold TEXT NOT NULL,
+                mismatch_reason TEXT,
+                failed_stage TEXT,
                 review_url TEXT NOT NULL,
                 state_blob TEXT,
                 thread_id TEXT,
@@ -42,6 +44,15 @@ class HumanReviewRepository:
                 updated_at TEXT
             )
         """)
+        
+        # Add new columns if they don't exist (for existing databases)
+        cursor.execute("PRAGMA table_info(human_review_queue)")
+        columns = [col[1] for col in cursor.fetchall()]
+        
+        if "mismatch_reason" not in columns:
+            cursor.execute("ALTER TABLE human_review_queue ADD COLUMN mismatch_reason TEXT")
+        if "failed_stage" not in columns:
+            cursor.execute("ALTER TABLE human_review_queue ADD COLUMN failed_stage TEXT")
         
         conn.commit()
         conn.close()
@@ -59,8 +70,8 @@ class HumanReviewRepository:
         cursor.execute("""
             INSERT OR REPLACE INTO human_review_queue 
             (checkpoint_id, invoice_id, vendor_name, amount, created_at, 
-             reason_for_hold, review_url, state_blob, thread_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+             reason_for_hold, mismatch_reason, failed_stage, review_url, state_blob, thread_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             checkpoint_data["checkpoint_id"],
             checkpoint_data["invoice_id"],
@@ -68,6 +79,8 @@ class HumanReviewRepository:
             checkpoint_data["amount"],
             checkpoint_data["created_at"],
             checkpoint_data["reason_for_hold"],
+            checkpoint_data.get("mismatch_reason"),
+            checkpoint_data.get("failed_stage"),
             checkpoint_data["review_url"],
             checkpoint_data.get("state_blob"),
             checkpoint_data.get("thread_id")
@@ -93,7 +106,8 @@ class HumanReviewRepository:
         
         cursor.execute("""
             SELECT checkpoint_id, invoice_id, vendor_name, amount, 
-                   created_at, reason_for_hold, review_url, thread_id
+                   created_at, reason_for_hold, mismatch_reason, failed_stage, 
+                   review_url, thread_id
             FROM human_review_queue
             WHERE decision IS NULL
             ORDER BY created_at DESC
