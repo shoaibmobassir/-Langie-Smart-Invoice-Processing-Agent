@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Invoice with Successful Match",
+    "description": "Invoice that matches PO perfectly - no HITL needed",
+    "file": "invoice_pass.json"
+  },
+  {
+    "name": "Invoice with Failed Match",
+    "description": "Invoice that doesn't match PO - triggers HITL checkpoint",
+    "file": "invoice_fail.json"
+  },
+  {
+    "name": "Large Amount Invoice",
+    "description": "Invoice with amount > $10,000 - requires approval",
+    "file": "invoice_large.json"
+  },
+  {
+    "name": "Missing Data Invoice",
+    "description": "Invoice with missing fields - tests flag computation",
+    "file": "invoice_missing.json"
+  }
+]
+

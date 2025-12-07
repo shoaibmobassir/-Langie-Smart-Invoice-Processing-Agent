@@ -1,0 +1,12 @@
+INVOICE
+Invoice ID: INV-2024-001
+Vendor: Acme Corporation
+Tax ID: TAX-123456
+Invoice Date: 2024-01-15
+Due Date: 2024-02-15
+
+Line Item 1: Widget A - Qty: 10, Price: $50.00, Total: $500.00
+Line Item 2: Widget B - Qty: 5, Price: $100.00, Total: $500.00
+
+PO Reference: PO-2024-001
+Total: $1000.00

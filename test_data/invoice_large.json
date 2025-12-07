@@ -1,0 +1,19 @@
+{
+  "invoice_id": "INV-2024-003",
+  "vendor_name": "Gamma Supplies Inc",
+  "vendor_tax_id": "TAX-345678",
+  "invoice_date": "2024-01-25",
+  "due_date": "2024-02-25",
+  "amount": 15000.00,
+  "currency": "USD",
+  "line_items": [
+    {
+      "desc": "Enterprise Software License",
+      "qty": 1,
+      "unit_price": 15000.00,
+      "total": 15000.00
+    }
+  ],
+  "attachments": ["test_data/invoice_003.pdf"]
+}
+

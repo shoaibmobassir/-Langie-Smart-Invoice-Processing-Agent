@@ -1,0 +1,19 @@
+{
+  "invoice_id": "INV-2024-002",
+  "vendor_name": "Beta Industries",
+  "vendor_tax_id": "TAX-789012",
+  "invoice_date": "2024-01-20",
+  "due_date": "2024-02-20",
+  "amount": 6000.00,
+  "currency": "USD",
+  "line_items": [
+    {
+      "desc": "Unknown Item",
+      "qty": 100,
+      "unit_price": 60.00,
+      "total": 6000.00
+    }
+  ],
+  "attachments": ["test_data/invoice_002.pdf"]
+}
+
