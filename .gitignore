@@ -48,3 +48,13 @@ logs/
 .DS_Store
 Thumbs.db
 
+# Node modules (should not be committed)
+node_modules/
+
+# Database files
+*.db-shm
+*.db-wal
+backend.pid
+
+# Test uploads
+test_data/uploaded/
