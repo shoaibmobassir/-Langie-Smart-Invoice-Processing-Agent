@@ -52,11 +52,6 @@ MCP_assignment/
 ├── test_end_to_end.py              # End-to-end test suite
 ├── test_auto_complete_scenarios.py # Auto-complete test scenarios
 ├── sample_invoice.json             # Sample invoice payload
-├── DEMO_GUIDE.md                   # Complete demo documentation
-├── DEMO_PRESENTATION.md            # Presentation guide
-├── QUICK_DEMO.md                   # Quick reference guide
-├── EXPLANATION_SCRIPT.md           # Explanation script for presentations
-├── VIDEO_SCRIPT.md                 # Video recording script
 ├── AUTO_COMPLETE_TEST_CASES.md     # Auto-complete test cases documentation
 │
 ├── src/
