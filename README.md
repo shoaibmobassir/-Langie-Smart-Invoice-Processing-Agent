@@ -811,47 +811,6 @@ pip install -r requirements.txt
 2. Add new capability pools
 3. Implement selection logic
 
-## 🎬 Demo Video Requirements
-
-### Section 1: Introduction (1 minute)
-- Your name and background
-- Overview of Langie project
-- Key features and technologies
-
-### Section 2: Working Solution Demo (4 minutes)
-1. **Frontend UI Walkthrough**
-   - Show invoice submission form
-   - Demonstrate file upload feature
-   - Show human review interface
-   - Display database preview
-
-2. **Workflow Execution**
-   - Submit invoice with file attachment
-   - Show backend logs/stage progression
-   - Demonstrate successful match scenario
-   - Trigger HITL checkpoint scenario
-
-3. **Human-In-The-Loop**
-   - Show pending review in UI
-   - Accept invoice decision
-   - Show automatic workflow resume
-   - Display final completed state
-
-4. **Database & Audit Trail**
-   - Show all workflows in database preview
-   - Display detailed stage outputs
-   - Show audit trail with reviewer information
-
-
-## Additional Documentation
-
-### Demo & Presentation
-- **DEMO_GUIDE.md**: Complete demo guide with all scenarios
-- **QUICK_DEMO.md**: Quick reference for presentations
-- **DEMO_PRESENTATION.md**: Presentation-ready guide with talking points
-- **EXPLANATION_SCRIPT.md**: Script for live presentations (~17 minutes)
-- **VIDEO_SCRIPT.md**: Script for video recordings (~14 minutes)
-
 ### Testing
 - **AUTO_COMPLETE_TEST_CASES.md**: Documentation for auto-complete test scenarios
 - **test_auto_complete_scenarios.py**: Automated test script for auto-complete cases
