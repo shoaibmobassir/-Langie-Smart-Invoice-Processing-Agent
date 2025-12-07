@@ -884,8 +884,6 @@ pip install -r requirements.txt
 - ✅ **Demo scripts** and comprehensive documentation
 - ✅ **Auto-complete detection** - workflows that don't need human review are properly identified
 
-## Recent Updates
-
 ### Version 2.0 Features
 - **Complete Workflow Visibility**: `/workflow/all` now includes auto-completed workflows (previously only showed HITL workflows)
 - **Delete Functionality**: Added DELETE endpoint and frontend delete button for workflow management
