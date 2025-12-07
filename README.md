@@ -835,7 +835,6 @@ pip install -r requirements.txt
 - ✅ **Auto-generated reviewer IDs** for better UX
 - ✅ **Structured logging** for observability
 - ✅ **End-to-end testing** scripts with 15+ auto-complete scenarios
-- ✅ **Demo scripts** and comprehensive documentation
 - ✅ **Auto-complete detection** - workflows that don't need human review are properly identified
 
 ### Version 2.0 Features
